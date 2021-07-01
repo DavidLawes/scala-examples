@@ -95,5 +95,28 @@ class FunSetSuite extends munit.FunSuite:
       assert(contains(t, 1), "Filter 2")
   }
 
+  test("forall returns whether all bounded integers within `s` satisfy `p`") {
+    new TestSets:
+      def p(elem: Int): Int => Boolean = x => x == elem - 1
+      val s = forall(s1, p(2))
+      assert(s, "ForAll 1")
+  }
+
+  test("exists returns whether there exists a bounded integer within `s` that satisfies `p`.") {
+    new TestSets:
+      def p(elem: Int): Int => Boolean = x => x == elem * 2
+      val s = exists(s2, p(1))
+      assert(s, "Exists 1")
+  }
+
+  test("map returns a set transformed by applying f to all elements in set") {
+    new TestSets:
+      val f: (Int => Int) = x => x * 2
+      val s = map(s1, f)
+      val t = map(s2, f)
+      assert(contains(s, 2), "Map 1")
+      assert(contains(t, 4), "Map 2")
+  }
+
   import scala.concurrent.duration.*
   override val munitTimeout = 10.seconds

@@ -55,24 +55,28 @@ trait FunSets extends FunSetsInterface:
    */
   def forall(s: FunSet, p: Int => Boolean): Boolean =
     def iter(a: Int): Boolean =
-      if ??? then
-        ???
-      else if ??? then
-        ???
-      else
-        iter(???)
-    iter(???)
+      if a > bound then true
+      else if contains(s, a) && !p(a) then false
+      else iter(a + 1)
+    iter(-bound)
 
   /**
    * Returns whether there exists a bounded integer within `s`
-   * that satisfies `p`.
+   * that satisfies `p`. NB: at least 1 is true - i.e. return after 1st successful 'true'
    */
-  def exists(s: FunSet, p: Int => Boolean): Boolean = ???
+  def exists(s: FunSet, p: Int => Boolean): Boolean =
+    def wrapper(p: Int => Boolean): (Int => Boolean) = (x: Int) => !p(x)
+    !forall(s, wrapper(p))
 
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-  def map(s: FunSet, f: Int => Int): FunSet = ???
+  def map(s: FunSet, f: Int => Int): FunSet =
+    def iter(a: Int): FunSet =
+      if a > bound then x => false
+      else if contains(s, a) then { println(this.toString(singletonSet(f(a)))); return singletonSet(f(a)) }
+      else iter(a + 1)
+    iter(-bound)
 
   /**
    * Displays the contents of a set
