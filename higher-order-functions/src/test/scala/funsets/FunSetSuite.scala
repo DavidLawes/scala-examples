@@ -111,11 +111,11 @@ class FunSetSuite extends munit.FunSuite:
 
   test("map returns a set transformed by applying f to all elements in set") {
     new TestSets:
-      val f: (Int => Int) = x => x * 2
-      val s = map(s1, f)
-      val t = map(s2, f)
-      assert(contains(s, 2), "Map 1")
-      assert(contains(t, 4), "Map 2")
+      val s = map(union(s1, s2), x => x * x)
+      println(FunSets.toString(s))
+      assert(contains(s, 1), "Map 1")
+      assert(contains(s, 4), "Map 2")
+      assert(!contains(s, 5), "Map 3")
   }
 
   import scala.concurrent.duration.*

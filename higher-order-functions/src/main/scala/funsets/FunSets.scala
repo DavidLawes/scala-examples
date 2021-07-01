@@ -71,12 +71,7 @@ trait FunSets extends FunSetsInterface:
   /**
    * Returns a set transformed by applying `f` to each element of `s`.
    */
-  def map(s: FunSet, f: Int => Int): FunSet =
-    def iter(a: Int): FunSet =
-      if a > bound then x => false
-      else if contains(s, a) then { println(this.toString(singletonSet(f(a)))); return singletonSet(f(a)) }
-      else iter(a + 1)
-    iter(-bound)
+  def map(s: FunSet, f: Int => Int): FunSet = (x: Int) => { exists(s, (y: Int) => { x == f(y) } )}
 
   /**
    * Displays the contents of a set
