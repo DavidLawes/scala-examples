@@ -32,12 +32,20 @@ class HuffmanSuite extends munit.FunSuite:
     assertEquals(makeOrderedLeafList(List(('t', 2), ('e', 1), ('x', 3))), List(Leaf('e',1), Leaf('t',2), Leaf('x',3)))
   }
 
-
   test("combine of some leaf list (15pts)") {
     val leaflist = List(Leaf('e', 1), Leaf('t', 2), Leaf('x', 4))
     assertEquals(combine(leaflist), List(Fork(Leaf('e',1),Leaf('t',2),List('e', 't'),3), Leaf('x',4)))
   }
 
+  test("create code tree") {
+    val chars = List('a', 'a', 'b', 'c')
+    assertEquals(createCodeTree(chars), Fork(Fork(Leaf('c', 1), Leaf('b', 1), List('c', 'b'), 2), Leaf('a', 2), List('c', 'b', 'a'), 4))
+  }
+
+  test("decode") {
+    new TestTrees:
+      assertEquals(decode(t1, List(0, 1)), "ab".toList)
+  }
 
   test("decode and encode a very short text should be identity (10pts)") {
     new TestTrees:
