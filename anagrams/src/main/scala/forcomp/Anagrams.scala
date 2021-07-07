@@ -60,10 +60,9 @@ object Anagrams extends AnagramsInterface:
   lazy val dictionaryByOccurrences: Map[Occurrences, List[Word]] = dictionary.groupBy(word => wordOccurrences(word))
 
   /** Returns all the anagrams of a given word. */
-  def wordAnagrams(word: Word): List[Word] =
-    dictionaryByOccurrences.get(wordOccurrences(word)) match
-      case None => Nil
-      case Some(words) => words
+  def wordAnagrams(word: Word): List[Word] = dictionaryByOccurrences.get(wordOccurrences(word)) match
+    case None => Nil
+    case Some(words) => words
 
   /** Returns the list of all subsets of the occurrence list.
    *  This includes the occurrence itself, i.e. `List(('k', 1), ('o', 1))`
@@ -87,7 +86,15 @@ object Anagrams extends AnagramsInterface:
    *  Note that the order of the occurrence list subsets does not matter -- the subsets
    *  in the example above could have been displayed in some other order.
    */
-  def combinations(occurrences: Occurrences): List[Occurrences] = ???
+  def combinations(occurrences: Occurrences): List[Occurrences] =
+    occurrences.foldRight(List[Occurrences](Nil))(
+      (occurrence, acc) => 
+        acc ++ (for
+            combination <- acc
+            i <- 1 to occurrence._2
+          yield 
+            (occurrence._1, i) :: combination)
+          )
 
   /** Subtracts occurrence list `y` from occurrence list `x`.
    *

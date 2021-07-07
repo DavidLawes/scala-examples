@@ -23,11 +23,11 @@ class AnagramsSuite extends munit.FunSuite:
     assertEquals(dictionaryByOccurrences.get(List(('a', 1), ('e', 1), ('t', 1))).map(_.toSet), Some(Set("ate", "eat", "tea")))
   }
 
-  test("wordAnagrams married (2pts)".only) {
+  test("wordAnagrams married (2pts)") {
     assertEquals(wordAnagrams("married").toSet, Set("married", "admirer"))
   }
 
-  test("wordAnagrams player (2pts)".only) {
+  test("wordAnagrams player (2pts)") {
     assertEquals(wordAnagrams("player").toSet, Set("parley", "pearly", "player", "replay"))
   }
 
@@ -41,11 +41,21 @@ class AnagramsSuite extends munit.FunSuite:
   }
 
 
-  test("combinations: [] (8pts)") {
+  test("combinations: [] (8pts)".only) {
     assertEquals(combinations(Nil), List(Nil))
   }
 
-  test("combinations: abba (8pts)") {
+  test("combinations: a".only) {
+    val a = List(('a', 2))
+    val acomb = List(
+      List(),
+      List(('a', 1)),
+      List(('a', 2))
+    )
+    assertEquals(combinations(a).toSet, acomb.toSet)
+  }
+
+  test("combinations: abba (8pts)".only) {
     val abba = List(('a', 2), ('b', 2))
     val abbacomb = List(
       List(),
