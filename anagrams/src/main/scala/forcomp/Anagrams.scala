@@ -151,10 +151,23 @@ object Anagrams extends AnagramsInterface:
    *  Note: There is only one anagram of an empty sentence.
    */
   def sentenceAnagrams(sentence: Sentence): List[Sentence] =
-    // transform sentence into occurrences?
-    // \
-    println(sentenceOccurrences(sentence))
-    List()
+    def loop(occ: Occurrences): List[Sentence] =
+      if occ.isEmpty then List(Nil)
+      else
+        for 
+          subset <- combinations(occ)
+          word <- dictionaryByOccurrences.getOrElse(subset, Nil)
+          next <- loop(subtract(occ, wordOccurrences(word)))
+          if !subset.isEmpty
+        yield
+          word :: next
+
+    // given orignal list of occurrences
+    // for a subset of occurrences
+    // find match in dictionary by occurrences
+    // if match then loop with arg = subtract word from occurrences
+
+    loop(sentenceOccurrences(sentence))
 
 object Dictionary:
   def loadDictionary: List[String] =
