@@ -41,11 +41,11 @@ class AnagramsSuite extends munit.FunSuite:
   }
 
 
-  test("combinations: [] (8pts)".only) {
+  test("combinations: [] (8pts)") {
     assertEquals(combinations(Nil), List(Nil))
   }
 
-  test("combinations: a".only) {
+  test("combinations: a") {
     val a = List(('a', 2))
     val acomb = List(
       List(),
@@ -55,7 +55,7 @@ class AnagramsSuite extends munit.FunSuite:
     assertEquals(combinations(a).toSet, acomb.toSet)
   }
 
-  test("combinations: abba (8pts)".only) {
+  test("combinations: abba (8pts)") {
     val abba = List(('a', 2), ('b', 2))
     val abbacomb = List(
       List(),
@@ -71,6 +71,11 @@ class AnagramsSuite extends munit.FunSuite:
     assertEquals(combinations(abba).toSet, abbacomb.toSet)
   }
 
+  test("subtract") {
+    val x = List(('a', 1), ('d', 1), ('l', 1), ('r', 1))
+    val y = List(('r', 1))
+    assertEquals(subtract(x, y), List(('a', 1), ('d', 1), ('l', 1)))
+  }
 
   test("sentence anagrams: [] (10pts)") {
     val sentence = List()

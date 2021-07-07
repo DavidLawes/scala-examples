@@ -106,7 +106,9 @@ object Anagrams extends AnagramsInterface:
    *  Note: the resulting value is an occurrence - meaning it is sorted
    *  and has no zero-entries.
    */
-  def subtract(x: Occurrences, y: Occurrences): Occurrences = ???
+  def subtract(x: Occurrences, y: Occurrences): Occurrences =
+    val yMap = y.foldLeft(Map[Char, Int]())((acc, o) => acc + (o._1 -> o._2))
+    x.map((char, int) => (char, int - yMap.getOrElse(char, 0))).filter((char, int) => int > 0)
 
   /** Returns a list of all anagram sentences of the given sentence.
    *
@@ -148,7 +150,11 @@ object Anagrams extends AnagramsInterface:
    *
    *  Note: There is only one anagram of an empty sentence.
    */
-  def sentenceAnagrams(sentence: Sentence): List[Sentence] = ???
+  def sentenceAnagrams(sentence: Sentence): List[Sentence] =
+    // transform sentence into occurrences?
+    // \
+    println(sentenceOccurrences(sentence))
+    List()
 
 object Dictionary:
   def loadDictionary: List[String] =
